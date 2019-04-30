@@ -24,6 +24,7 @@
 		8962E33922781C940086FDF4 /* ProfileHireTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E33822781C940086FDF4 /* ProfileHireTableViewCell.swift */; };
 		8962E33C22781DEC0086FDF4 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E33B22781DEC0086FDF4 /* AddViewController.swift */; };
 		8962E33E22781E030086FDF4 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E33D22781E030086FDF4 /* InfoViewController.swift */; };
+		8962E34022783D540086FDF4 /* HomeTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E33F22783D540086FDF4 /* HomeTabBarController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		8962E33822781C940086FDF4 /* ProfileHireTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHireTableViewCell.swift; sourceTree = "<group>"; };
 		8962E33B22781DEC0086FDF4 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
 		8962E33D22781E030086FDF4 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		8962E33F22783D540086FDF4 /* HomeTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabBarController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +167,7 @@
 				8962E32E22781B5D0086FDF4 /* HomeTableViewController.swift */,
 				8962E33122781BB30086FDF4 /* HomeTableViewCell.swift */,
 				8962E33D22781E030086FDF4 /* InfoViewController.swift */,
+				8962E33F22783D540086FDF4 /* HomeTabBarController.swift */,
 			);
 			path = HomeTable;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				8962E2FC2277F29F0086FDF4 /* ViewController.swift in Sources */,
 				8962E33C22781DEC0086FDF4 /* AddViewController.swift in Sources */,
 				8962E33522781BFE0086FDF4 /* ProfileViewController.swift in Sources */,
+				8962E34022783D540086FDF4 /* HomeTabBarController.swift in Sources */,
 				8962E33E22781E030086FDF4 /* InfoViewController.swift in Sources */,
 				8962E33922781C940086FDF4 /* ProfileHireTableViewCell.swift in Sources */,
 				8962E33722781C7E0086FDF4 /* ProfileEmploymentTableViewCell.swift in Sources */,

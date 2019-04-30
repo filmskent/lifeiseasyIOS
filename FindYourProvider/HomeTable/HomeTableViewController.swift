@@ -19,7 +19,6 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         super.viewDidLoad()
         
         setPickerView()
-        pickerView.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -34,6 +33,17 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         //set Tap to quit
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(HomeTableViewController.viewTapped(gestureRecognizer:)))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    func setAddButton(){
+        
+        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
+        self.navigationItem.rightBarButtonItem = addBtn
+    }
+    
+    @objc func addTapped(){
+        let addViewController = AddViewController()
+        self.navigationController?.pushViewController(addViewController, animated: true)
     }
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
@@ -52,15 +62,19 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         return 1
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "maincell", for: indexPath) as! HomeTableViewCell
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+    }
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -122,7 +136,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         typeInput.text = "Job Type: " + typeList[row]
-        
+        tableView.reloadData()
     }
 
 }
