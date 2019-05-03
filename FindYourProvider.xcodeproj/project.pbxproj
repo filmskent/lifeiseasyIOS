@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89097E8F227BEBEE009D6FF9 /* post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89097E8E227BEBEE009D6FF9 /* post.swift */; };
 		8962E2FA2277F29F0086FDF4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E2F92277F29F0086FDF4 /* AppDelegate.swift */; };
 		8962E2FC2277F29F0086FDF4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8962E2FB2277F29F0086FDF4 /* ViewController.swift */; };
 		8962E2FF2277F29F0086FDF4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8962E2FD2277F29F0086FDF4 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		89097E8E227BEBEE009D6FF9 /* post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = post.swift; sourceTree = "<group>"; };
 		8962E2F62277F29F0086FDF4 /* FindYourProvider.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FindYourProvider.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8962E2F92277F29F0086FDF4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8962E2FB2277F29F0086FDF4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				8962E3002277F2A00086FDF4 /* Assets.xcassets */,
 				8962E3022277F2A00086FDF4 /* LaunchScreen.storyboard */,
 				8962E3052277F2A00086FDF4 /* Info.plist */,
+				89097E8E227BEBEE009D6FF9 /* post.swift */,
 			);
 			path = FindYourProvider;
 			sourceTree = "<group>";
@@ -324,6 +327,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89097E8F227BEBEE009D6FF9 /* post.swift in Sources */,
 				8962E32F22781B5D0086FDF4 /* HomeTableViewController.swift in Sources */,
 				8962E2FC2277F29F0086FDF4 /* ViewController.swift in Sources */,
 				8962E33C22781DEC0086FDF4 /* AddViewController.swift in Sources */,

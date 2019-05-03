@@ -11,7 +11,7 @@ import UIKit
 class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIPickerViewDataSource {
     
     let pickerView = UIPickerView()
-    let typeList = ["Design","Developer","Engineer"]
+    let typeList = ["All","Application","Architecture & Interior","Art & Drawing","Artist","Business","Content & Writing","Design","Graphic Design","Influenver","Language","Lifestyle","Marketing Plan","Marketing Strategy","Photo & Video","Self Improvement","Social Media","Technical","Voice & Sound","Website Development"]
 
     @IBOutlet var typeInput: UITextField!
     
@@ -19,11 +19,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         super.viewDidLoad()
         
         setPickerView()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setDoneBtn()
     }
     
     func setPickerView(){
@@ -35,30 +31,53 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         view.addGestureRecognizer(tapGesture)
     }
     
-    func setAddButton(){
-        
-        let addBtn = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addTapped))
-        self.navigationItem.rightBarButtonItem = addBtn
-    }
-    
-    @objc func addTapped(){
-        let addViewController = AddViewController()
-        self.navigationController?.pushViewController(addViewController, animated: true)
-    }
-    
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
+        view.endEditing(true)
+    }
+    
+    func setDoneBtn(){
+        let accessory: UIView = {
+            let accessoryView = UIView(frame: .zero)
+            accessoryView.backgroundColor = .lightGray
+            accessoryView.alpha = 0.6
+            return accessoryView
+        }()
+        let sendButton: UIButton! = {
+            let sendButton = UIButton(type: .custom)
+            sendButton.setTitleColor(.blue, for: .normal)
+            sendButton.setTitle("DONE", for: .normal)
+            sendButton.setTitleColor(.white, for: .disabled)
+            sendButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
+            sendButton.showsTouchWhenHighlighted = true
+            sendButton.isEnabled = true
+            return sendButton
+        }()
+        
+        accessory.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 45)
+        accessory.translatesAutoresizingMaskIntoConstraints = false
+        sendButton.translatesAutoresizingMaskIntoConstraints = false
+        typeInput.inputAccessoryView = accessory
+        
+        accessory.addSubview(sendButton)
+        NSLayoutConstraint.activate([
+            sendButton.trailingAnchor.constraint(equalTo:
+                accessory.trailingAnchor, constant: -20),
+            sendButton.centerYAnchor.constraint(equalTo:
+                accessory.centerYAnchor)
+            ])
+    }
+    
+    @objc func doneButtonTapped(){
         view.endEditing(true)
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         return 1
     }
 
