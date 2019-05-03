@@ -12,7 +12,21 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        let c = NSURLComponents(url: url, resolvingAgainstBaseURL: false)
+        let a = c?.queryItems
+        let q = a?[0]
+        let t = q?.value
+        let defaults = UserDefaults.standard
+        defaults.set(t, forKey: "ticket")
+        print("\(String(describing: t))")
+        let s = UIStoryboard(name: "Main", bundle:Bundle.main)
+        let v = s.instantiateViewController(withIdentifier: "main")
+        let n = UINavigationController(rootViewController: v)
+        window?.rootViewController = n
+        return true
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
