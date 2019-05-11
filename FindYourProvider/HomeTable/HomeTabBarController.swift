@@ -19,7 +19,7 @@ class HomeTabBarController: UITabBarController {
     
     func getLogin(){
         let ticket = UserDefaults.standard.string(forKey: "ticket")
-        let strURL = "http://54.179.153.2:9000/job?ticket=" + ticket!
+        let strURL = "http://54.179.153.2:9000/login?ticket=" + ticket!
         
         let url = URL(string: strURL)
         URLSession.shared.dataTask(with:url!) { (data, response, error) in
@@ -28,7 +28,7 @@ class HomeTabBarController: UITabBarController {
             } else {
                 do {
                     
-                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [[String : Any]]
+                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String : Any]
                     print(parsedData)
                 } catch let error as NSError {
                     print(error.localizedDescription)
