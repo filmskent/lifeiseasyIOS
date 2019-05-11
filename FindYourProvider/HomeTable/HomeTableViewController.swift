@@ -10,6 +10,13 @@ import UIKit
 
 class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIPickerViewDataSource {
     
+    var jobs:[[String:Any]] = []
+    var tmpJobs:[[String:Any]] = []
+    var isFilter = false
+    var profile:[String:Any] = [:]
+    
+    @IBOutlet var jobTable: UITableView!
+    
     let pickerView = UIPickerView()
     let typeList = ["All","Application","Architecture & Interior","Art & Drawing","Artist","Business","Content & Writing","Design","Graphic Design","Influenver","Language","Lifestyle","Marketing Plan","Marketing Strategy","Photo & Video","Self Improvement","Social Media","Technical","Voice & Sound","Website Development"]
 
@@ -17,10 +24,61 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        getJob()
         setPickerView()
         setDoneBtn()
+        getProfile()
     }
+    
+    func getJob(){
+        let ticket = UserDefaults.standard.string(forKey: "ticket")
+        let strURL = "http://54.179.153.2:9000/job?ticket=" + ticket!
+        
+        let url = URL(string: strURL)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                do {
+                    
+                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [[String : Any]]
+                    self.jobs = parsedData
+                    self.jobTable.reloadData()
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            }.resume()
+    }
+    
+    func getProfile(){
+        let ticket = UserDefaults.standard.string(forKey: "ticket")
+        let strURL = "http://54.179.153.2:9000/me?ticket=" + ticket!
+        
+        let url = URL(string: strURL)
+        URLSession.shared.dataTask(with:url!) { (data, response, error) in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                do {
+                    
+                    let parsedData = try JSONSerialization.jsonObject(with: data!) as! [String : Any]
+                    self.profile = parsedData["profile"] as! [String : Any]
+                    let ud = UserDefaults.standard
+                    ud.set(self.profile["_id"], forKey: "userid")
+                    ud.set(self.profile["username"], forKey: "username")
+                    ud.set(self.profile["gecos"], forKey: "fullname")
+                    ud.set(self.profile["email"], forKey: "email")
+                } catch let error as NSError {
+                    print(error.localizedDescription)
+                }
+            }
+            
+            }.resume()
+    }
+
     
     func setPickerView(){
         pickerView.delegate = self
@@ -33,6 +91,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     
     @objc func viewTapped(gestureRecognizer: UITapGestureRecognizer){
         view.endEditing(true)
+        filter()
     }
     
     func setDoneBtn(){
@@ -69,6 +128,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     
     @objc func doneButtonTapped(){
         view.endEditing(true)
+        filter()
     }
 
     // MARK: - Table view data source
@@ -78,21 +138,74 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return jobs.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "maincell", for: indexPath) as! HomeTableViewCell
+//        cell.setTxt(job: jobs[indexPath])
+        cell.nameLbl.text = jobs[indexPath.row]["provider"] as! String
+        cell.jobLbl.text = jobs[indexPath.row]["name"] as! String
+        cell.priceLbl.text = String(jobs[indexPath.row]["price"] as! Int)
 
-        // Configure the cell...
-
+        //DateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date = dateFormatter.date(from: jobs[indexPath.row]["date"] as! String)
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd/MM/yyyy"
+        let dStr = dateFormatter2.string(from: date!)
+        cell.dateLbl.text = dStr
+        cell.detailLbl.text = jobs[indexPath.row]["detail"] as! String
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
         
+        let ud = UserDefaults.standard
+        ud.set(jobs[indexPath.row]["provider"] as! String, forKey: "nameStr")
+        ud.set(jobs[indexPath.row]["name"] as! String, forKey: "jobStr")
+        ud.set(String(jobs[indexPath.row]["price"] as! Int), forKey: "priceStr")
+        ud.set(jobs[indexPath.row]["detail"] as! String, forKey: "detailStr")
+
+        //DateFormatter
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let date = dateFormatter.date(from: jobs[indexPath.row]["date"] as! String)
+        
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd/MM/yyyy"
+        let dStr = dateFormatter2.string(from: date!)
+        ud.set(dStr, forKey: "dateStr")
+        
+        ud.set(jobs[indexPath.row]["_id"] as! String, forKey: "jobid")
+
     }
+    
+    func filter(){
+        if(typeInput.text != "All" && typeInput.text != ""){
+            if(!isFilter){
+                tmpJobs = jobs
+            }
+            jobs = []
+            for job in tmpJobs{
+                if(job["name"] as? String == typeInput.text){
+                        jobs.append(job)
+                }
+            }
+            jobTable.reloadData()
+            isFilter = true
+        }else{
+            if(isFilter){
+                jobs = tmpJobs
+            }
+            jobTable.reloadData()
+            isFilter = false
+        }
+    }
+    
     
 
     /*
@@ -154,7 +267,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        typeInput.text = "Job Type: " + typeList[row]
+        typeInput.text = typeList[row]
         tableView.reloadData()
     }
 

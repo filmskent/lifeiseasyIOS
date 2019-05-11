@@ -10,6 +10,12 @@ import UIKit
 
 class ProfileHireTableViewCell: UITableViewCell {
 
+    @IBOutlet var nameLbl: UILabel!
+    @IBOutlet var jobLbl: UILabel!
+    @IBOutlet var detailLbl: UILabel!
+    @IBOutlet var priceLbl: UILabel!
+    @IBOutlet var dateLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

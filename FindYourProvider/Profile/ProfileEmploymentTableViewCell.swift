@@ -10,6 +10,12 @@ import UIKit
 
 class ProfileEmploymentTableViewCell: UITableViewCell {
 
+    @IBOutlet var jobLbl: UILabel!
+    @IBOutlet var detailLbl: UILabel!
+    @IBOutlet var priceLbl: UILabel!
+    @IBOutlet var dateLbl: UILabel!
+    @IBOutlet var customerLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

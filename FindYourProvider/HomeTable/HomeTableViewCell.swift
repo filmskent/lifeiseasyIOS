@@ -10,6 +10,12 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
 
+    @IBOutlet var nameLbl: UILabel!
+    @IBOutlet var jobLbl: UILabel!
+    @IBOutlet var priceLbl: UILabel!
+    @IBOutlet var dateLbl: UILabel!
+    @IBOutlet var detailLbl: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

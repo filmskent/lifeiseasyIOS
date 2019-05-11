@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class AddViewController: UIViewController , UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -16,6 +18,8 @@ class AddViewController: UIViewController , UIPickerViewDelegate, UIPickerViewDa
     
     @IBOutlet var dateInput: UITextField!
     @IBOutlet var typeInput: UITextField!
+    @IBOutlet var priceInput: UITextField!
+    @IBOutlet var detailLbl: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,6 +115,30 @@ class AddViewController: UIViewController , UIPickerViewDelegate, UIPickerViewDa
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         typeInput.text = typeList[row]
     }
+    
+    @IBAction func addBtn(_ sender: Any) {
+        
+        //DateFormatter
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "dd/MM/yyyy"
+        let dStr = dateFormatter2.date(from: dateInput.text!)
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let date = dateFormatter.string(from: dStr!)
+        
+//        // prepare json data
+//        let json: [String: Any] = ["name": typeInput.text! , "price": Int(priceInput.text!)! , "detail": detailLbl.text! , "date": date]
+//
+        let parameters: Parameters = [
+            "name": typeInput.text! , "price": Int(priceInput.text!)! , "detail": detailLbl.text! , "date": date
+        ]
+        
+        let ticket = UserDefaults.standard.string(forKey: "ticket")
+        
+        Alamofire.request("http://54.179.153.2:9000/job?ticket=" + ticket!, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+    }
+    
 
     /*
     // MARK: - Navigation

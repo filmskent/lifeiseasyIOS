@@ -1,0 +1,6 @@
+framework module Pods_FindYourProviderUITests {
+  umbrella header "Pods-FindYourProviderUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
