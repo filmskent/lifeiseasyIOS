@@ -98,7 +98,7 @@ class HomeTableViewController: UITableViewController , UIPickerViewDelegate, UIP
         let accessory: UIView = {
             let accessoryView = UIView(frame: .zero)
             accessoryView.backgroundColor = .lightGray
-            accessoryView.alpha = 0.6
+            accessoryView.alpha = 1
             return accessoryView
         }()
         let sendButton: UIButton! = {
